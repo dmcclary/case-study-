@@ -1,0 +1,63 @@
+1. SELinux (Security-Enhanced Linux)
+1.1 What is SELinux?
+
+    SELinux Overview: SELinux is a security module integrated into the Linux kernel that provides a mechanism for supporting access control security policies. It was originally developed by the NSA to enforce mandatory access controls (MAC), adding an extra layer of security to the Linux operating system.
+
+1.2 Basic Architecture of SELinux
+
+    Key Components:
+        Policy Enforcement Server (PES): This is the core component that enforces SELinux policies on the system.
+        SELinux Policy: Policies define the rules that control the permissions for processes, files, and other resources.
+        Security Contexts: SELinux uses security contexts (labels) for every process, file, and network interface, defining what resources they can access.
+        Types of Policies:
+            Targeted Policy: Most common and applies to specific, critical system services.
+            MLS Policy (Multi-Level Security): Used for environments requiring stringent access control based on sensitivity levels.
+
+1.3 SELinux Features and Use Cases
+
+    Mandatory Access Controls (MAC): Unlike discretionary access control (DAC), which is based on user ownership, MAC enforces security policies that users cannot override.
+
+    Role-Based Access Control (RBAC): SELinux allows roles to be defined, with permissions allocated based on roles rather than individual users, which is particularly useful in larger teams.
+
+    Type Enforcement (TE): This is the core of SELinux policies, where types (labels) are assigned to all processes and objects. The policy dictates how types can interact.
+
+    Use Case Scenarios:
+        Web Servers: Prevents web server exploits by confining services like Apache to specific, limited resources.
+        Database Servers: Ensures that databases can only access designated files and processes, protecting data integrity.
+        Corporate Environments: Protects sensitive information by enforcing strict access control across different user roles and processes.
+
+2. Virtualization and Containers
+2.1 Virtualization
+
+    Purpose: Virtualization allows you to run multiple virtual machines (VMs) on a single physical machine, with each VM operating as a separate, isolated environment.
+    Types of Virtualization:
+        Full Virtualization: The entire hardware is virtualized, and each VM runs its own OS, e.g., using VMware or KVM.
+        Paravirtualization: Only parts of the hardware are virtualized, and the guest OS is aware of the virtualization layer, which can improve performance.
+    Common Use Cases: Running different OS environments on the same hardware, server consolidation, and testing in isolated environments.
+
+2.2 Containers
+
+    Purpose: Containers are a lightweight alternative to full VMs, where applications and their dependencies are packaged together. They share the host OS kernel but operate in isolated environments.
+    Key Technologies: Docker is the most popular container platform, with Kubernetes being used for container orchestration.
+    Comparison with Virtualization:
+        Efficiency: Containers are more resource-efficient than VMs because they don’t require a full OS for each instance.
+        Isolation: VMs provide stronger isolation at the cost of higher overhead, while containers are lighter but less isolated.
+
+3. Linux Hardening and Alternatives to SELinux
+3.1 Linux Hardening
+
+    Overview: Linux hardening refers to the process of securing a Linux system by reducing its surface of vulnerability. This includes:
+        Disabling Unnecessary Services: Reducing the number of active services to minimize attack vectors.
+        Applying Security Patches: Keeping the system up-to-date with the latest security patches.
+        Configuring Firewalls: Using tools like iptables or firewalld to control incoming and outgoing traffic.
+        Implementing Intrusion Detection Systems (IDS): Tools like AIDE (Advanced Intrusion Detection Environment) can monitor file integrity.
+
+3.2 Alternatives to SELinux
+
+    AppArmor:
+        Overview: AppArmor is another security module for Linux that provides a MAC system similar to SELinux. However, it’s considered easier to configure and manage.
+        Differences: Unlike SELinux’s label-based approach, AppArmor uses file paths to apply policies, which makes it more intuitive for some administrators.
+        Use Cases: Often preferred in environments where SELinux is considered too complex or where a simpler, more straightforward security solution is desired.
+    Grsecurity:
+        Overview: Grsecurity is a set of security patches for the Linux kernel that focuses on proactive security measures, including memory protection and restricting the kernel’s attack surface.
+        Use Cases: High-security environments where advanced protection against kernel-level exploits is necessary.
